@@ -1,0 +1,65 @@
+CREATE DATABASE salary_management
+go
+
+CREATE TABLE Employee(
+  EmployeeID  INTEGER      NOT NULL PRIMARY KEY,
+  Name        VARCHAR(30)  NOT NULL,
+  Sex         CHAR(1)      NOT NULL,
+  Address     VARCHAR(80)  NOT NULL,
+  Security    VARCHAR(15)  NOT NULL          
+);
+
+CREATE TABLE Departments  (
+  DeptID   INTEGER     NOT NULL PRIMARY KEY,
+  DeptName VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE Dept_Employee(
+  EmployeeID   INTEGER NOT NULL,          
+  DeptID       INTEGER NOT NULL,
+  CONSTRAINT fk_DeptID     FOREIGN KEY (DeptID)  REFERENCES Departments(DeptID),
+  CONSTRAINT fk_EmployeeID FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+CREATE TABLE Dept_Manager(
+  EmployeeID   INTEGER NOT NULL,          
+  DeptID       INTEGER NOT NULL,
+  CONSTRAINT fk_DeptIDs     FOREIGN KEY (DeptID)     REFERENCES Departments(DeptID),
+  CONSTRAINT fk_EmployeeIDs FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+CREATE TABLE Jobs (
+  JobID            INTEGER      NOT NULL PRIMARY KEY,
+  JobName          VARCHAR(30)  NOT NULL,
+  JobSalary        NUMERIC(15,3) NOT NULL default '0.000', 
+  JobSalaryperDay  NUMERIC(15,3) NOT NULL default '0.000', 
+  DeptID           INTEGER      NOT NULL
+);
+
+CREATE TABLE Jobs_Employee(
+  EmployeeID   INTEGER NOT NULL,
+  JobID        INTEGER NOT NULL,
+  CONSTRAINT fk_JobIDs      FOREIGN KEY (JobID)      REFERENCES Jobs(JobID),
+  CONSTRAINT fk_EmployeeIDss FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+CREATE TABLE Project(
+  ProjectID    INTEGER NOT NULL PRIMARY KEY,
+  ProjectDesc   XML NOT NULL,
+  StartDate     DATE NOT NULL,
+  EndDate       DATE NOT NULL, 
+  DaysOfWork    INTEGER NOT NULL,
+  NoEmployees   INTEGER NOT NULL,
+  EstimatedCost NUMERIC(15,3) NOT NULL default '0.000', 
+  RealCost      NUMERIC(15,3) NOT NULL default '0.000' 
+);
+
+
+CREATE TABLE Project_Employee(
+  ProjectID    INTEGER NOT NULL,
+  EmployeeID   INTEGER NOT NULL,
+  Note         VARCHAR(200),
+  DaysWork     INTEGER NOT NULL,
+  CONSTRAINT fk_ProjectIDsss  FOREIGN KEY (ProjectID)  REFERENCES Project(ProjectID),
+  CONSTRAINT fk_EmployeeIDsss FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
