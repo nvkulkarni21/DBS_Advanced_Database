@@ -1,0 +1,86 @@
+INSERT INTO Departments VALUES (1, 'Outsourcing');
+    INSERT INTO Departments VALUES (2, 'Technician');
+    INSERT INTO Departments VALUES (3, 'Administrative');
+
+    INSERT INTO Jobs VALUES (1, 'welder'    ,500.550,16.7 ,2);
+    INSERT INTO Jobs VALUES (2, 'turner'    ,500.100,16.67,2);
+    INSERT INTO Jobs VALUES (3, 'assistant' ,650.100,21.67,2);
+    INSERT INTO Jobs VALUES (4, 'supervisor',800.909,26.70,3);
+    INSERT INTO Jobs VALUES (5, 'manager'   ,920.345,30.68,3);
+    INSERT INTO Jobs VALUES (6, 'counter'   ,520.324,17.35,1);
+
+    INSERT INTO Employee VALUES (10, 'Joe',  'M', 'Anywhere', '927318344');
+    INSERT INTO Employee VALUES (20, 'Moe',  'M', 'Anywhere', '827318322');
+    INSERT INTO Employee VALUES (30, 'Jack', 'M', 'Anywhere', '927418343');
+    INSERT INTO Employee VALUES (40, 'Marge','F', 'Evererre', '127347645');
+    INSERT INTO Employee VALUES (50, 'Greg' ,'M', 'Portland', '134547633');
+
+    INSERT INTO Dept_Employee VALUES  (10,1);
+    INSERT INTO Dept_Employee  VALUES (20,2);
+    INSERT INTO Dept_Employee  VALUES (30,3);
+    INSERT INTO Dept_Employee VALUES  (40,1);
+    INSERT INTO Dept_Employee  VALUES (50,3);
+
+    INSERT INTO Jobs_Employee  VALUES (10,3);
+    INSERT INTO Jobs_Employee  VALUES (20,3);
+    INSERT INTO Jobs_Employee  VALUES (30,4);
+    INSERT INTO Jobs_Employee  VALUES (40,6);
+    INSERT INTO Jobs_Employee  VALUES (50,5);
+
+
+
+
+   INSERT INTO Project VALUES (1, 
+'<ProjectDesc>
+<projectheading>
+<heading>Project Name</heading>
+ <description>Sales IT</description>
+</projectheading>
+<subteam id="1">
+ <heading>Scrum Team 1</heading>
+ <teamname>Equities</teamname>
+ <description>Handles sales for equities products</description>
+</subteam>
+<subteam id="2">
+ <heading>Scrum Team 2</heading>
+ <teamname>Fixed Income</teamname>
+ <description>Handles sales for FI products</description>
+</subteam>
+<subteam id="3">
+ <heading>Scrum Team 3</heading>
+ <teamname>Derivatives</teamname>
+ <description>Handles sales for Derivatives products</description>
+</subteam>
+</ProjectDesc>','2008-7-04' , '2008-7-24' , 20, 5, 3000.50, 2500.00);
+
+    INSERT INTO Project VALUES (2, 
+'<ProjectDesc>
+<projectheading>
+<heading>Project Name</heading>
+ <description>Surveillance IT</description>
+</projectheading>
+<subteam id="1">
+ <heading>Scrum Team 1</heading>
+ <teamname>Trade Surveillance</teamname>
+ <description>Handles trade surveillance products</description>
+</subteam>
+<subteam id="2">
+ <heading>Scrum Team 2</heading>
+ <teamname>Electornics Surveillance</teamname>
+ <description>Handles email Surveillance </description>
+</subteam>
+<subteam id="3">
+ <heading>Scrum Team 3</heading>
+ <teamname>Audio Surveillance</teamname>
+ <description>Handles sAudio Surveillance</description>
+</subteam>
+</ProjectDesc>','2008-8-01' , '2008-8-30' , 30, 5, 6000.40, 6100.40);
+
+
+
+    INSERT INTO Project_Employee VALUES (1, 10, 'Worked all days'    , 20);
+    INSERT INTO Project_Employee VALUES (1, 20, 'Worked just in defs', 11);
+    INSERT INTO Project_Employee VALUES (1, 30, 'Worked just in defs', 17);
+    INSERT INTO Project_Employee VALUES (1, 40, 'Contability '       , 8);
+    INSERT INTO Project_Employee VALUES (1, 50, 'Managed the project', 8);
+
