@@ -1,0 +1,21 @@
+CREATE VIEW Emp_Job as
+SELECT e.*,j.jobID  
+FROM  Employee e,Jobs_Employee j
+WHERE e.EmployeeID = j.EmployeeID;
+go
+
+
+CREATE VIEW employee_pay as
+select e.*, j.jobname, j.jobsalary, j.jobsalaryperday
+from Emp_Job e
+inner join Jobs j
+        on e.JobID = j.JobID;
+go
+
+create view project_pay as 
+select pe.projectid, pe.employeeid, pe.dayswork,
+       e.jobsalaryperday, (e.jobsalaryperday * dayswork) as total_salary
+from Project_Employee pe
+inner join employee_pay e
+        on e.employeeid = pe.employeeid
+go
