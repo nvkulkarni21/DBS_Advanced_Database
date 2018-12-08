@@ -68,3 +68,8 @@ CREATE TABLE EmployeeLog(
   EmpLodID INT NOT NULL IDENTITY (1,1) PRIMARY KEY , 
   Details varchar(200), 
   LogDate DATETIME NOT NULL DEFAULT getdate())
+
+CREATE TABLE JobLog(
+  JobLogID INT NOT NULL IDENTITY (1,1) PRIMARY KEY , 
+  Details varchar(200), 
+  LogDate DATETIME NOT NULL DEFAULT getdate())
