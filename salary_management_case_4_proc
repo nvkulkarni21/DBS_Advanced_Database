@@ -1,0 +1,27 @@
+use salary_management
+go
+if exists (select 1 from sysobjects where name = 'salary_management_case_4' and type = 'P')
+BEGIN
+    drop PROCEDURE salary_management_case_4
+END
+go
+create PROCEDURE salary_management_case_4
+/*
+This procedure give the person and his designation who worked to all the days in the project span.
+In typically, he is called the most hard working person and gets an award :)
+declare @RetValue int
+exec @RetValue = dbo.salary_management_case_4
+*/
+as 
+BEGIN
+
+    SELECT e.Name,j.JobName as Work_Designation,p.DaysOfWork
+    FROM   Project p, Project_Employee pe,Employee e ,Jobs_Employee je,Jobs j
+    WHERE  p.ProjectID = pe.ProjectID 
+    AND    p.DaysOfWork = pe.DaysWork
+    AND    e.EmployeeID = pe.EmployeeID
+    AND    pe.EmployeeID = je.EmployeeID
+    AND    j.JobID       = je.JobID
+
+END
+go
