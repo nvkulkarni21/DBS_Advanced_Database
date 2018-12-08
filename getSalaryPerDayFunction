@@ -1,6 +1,6 @@
 use salary_management
 go
-if exists (select 1 from sysobjects where name  = 'getSalaryPerDay' and type = 'SF')
+if exists (select * from sysobjects where name  = 'getSalaryPerDay' and type = 'FN')
 BEGIN
     drop FUNCTION getSalaryPerDay
 END
@@ -10,7 +10,8 @@ RETURNS NUMERIC(15,3)
 AS
 BEGIN
     DECLARE @nJobSalaryperDay NUMERIC(15,3)
-    SELECT @nJobSalaryperDay = j.JobSalaryperDay
+    --point no 1
+    SELECT @nJobSalaryperDay = j.JobSalaryperDay  --,e.Name,e.EmployeeID,d.DeptName,d.DeptID
     FROM Employee e, Departments d, Dept_Employee de, Jobs j 
     WHERE e.EmployeeID = de.EmployeeID
     AND   d.DeptID     = de.DeptID
