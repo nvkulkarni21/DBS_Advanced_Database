@@ -1,0 +1,38 @@
+use salary_management
+go
+if exists (select 1 from sysobjects where name = 'salary_management_case' and type = 'P')
+BEGIN
+    drop PROCEDURE salary_management_case
+END
+go
+create PROCEDURE salary_management_case (@EmpID int)
+/*
+DECLARE @nEmpID INT , @RetValue int
+SET @nEmpID = 10
+exec @RetValue = dbo.salary_management_case 10
+*/
+as 
+DECLARE @nJobSalaryperDay NUMERIC(15,3)
+   
+BEGIN
+    --User defined Function to find the perday salary of the employee.
+    --point no 1,3
+    SELECT  @nJobSalaryperDay = dbo.getSalaryPerDay(@EmpID )
+   
+
+   --Count number of males and females using group by
+   -- point 2
+    SELECT Sex,count(*)
+    FROM  Employee
+    group by Sex
+
+    --Departments whose average salary is geater than average salary of all the jobs 
+    -- point no 2
+    SELECT DeptID,AVG(JobSalaryperDay)
+    FROM Jobs J
+    GROUP BY DeptID
+    HAVING AVG(JobSalaryperDay) > (SELECT AVG(JobSalaryperDay) FROM Jobs J)
+
+END
+
+go
