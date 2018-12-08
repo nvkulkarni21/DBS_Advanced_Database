@@ -1,0 +1,24 @@
+use salary_management
+go
+if exists (select 1 from sysobjects where name  = 'getSalaryPerDay' and type = 'SF')
+BEGIN
+    drop FUNCTION getSalaryPerDay
+END
+go
+create FUNCTION getSalaryPerDay(@EmpID int)
+RETURNS NUMERIC(15,3)
+AS
+BEGIN
+    DECLARE @nJobSalaryperDay NUMERIC(15,3)
+    SELECT @nJobSalaryperDay = j.JobSalaryperDay
+    FROM Employee e, Departments d, Dept_Employee de, Jobs j 
+    WHERE e.EmployeeID = de.EmployeeID
+    AND   d.DeptID     = de.DeptID
+    AND   d.DeptID     = j.DeptID
+    and   e.EmployeeID      = @EmpID
+
+    RETURN @nJobSalaryperDay
+END
+go
+
+--select dbo.getSalaryPerDay(20)
