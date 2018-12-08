@@ -1,0 +1,27 @@
+-- Create trigger on table Employee for Update statement
+use salary_management
+go
+if exists (select 1 from sysobjects where name = 'JobUpdTrg')
+BEGIN
+    drop trigger JobUpdTrg
+END
+go
+CREATE TRIGGER JobUpdTrg ON dbo.Jobs
+FOR UPDATE
+AS
+declare @stext varchar(200),@newdate VARCHAR (100),@njobid INT
+
+IF UPDATE(JobName)
+BEGIN
+    SELECT @newdate = JobName ,
+           @njobid  = JobID 
+    FROM inserted
+    
+    SELECT @stext = 'Name is Updated to ' + @newdate + ' for Job ID  ' + convert(varchar,@njobid)
+    IF @stext IS NOT NULL
+        INSERT INTO JobLog VALUES(@stext,GETDATE())
+END
+
+
+PRINT 'AFTER UPDATE trigger fired.'
+--Output will be 
