@@ -63,3 +63,8 @@ CREATE TABLE Project_Employee(
   CONSTRAINT fk_ProjectIDsss  FOREIGN KEY (ProjectID)  REFERENCES Project(ProjectID),
   CONSTRAINT fk_EmployeeIDsss FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 );
+
+CREATE TABLE EmployeeLog(
+  EmpLodID INT NOT NULL IDENTITY (1,1) PRIMARY KEY , 
+  Details varchar(200), 
+  LogDate DATETIME NOT NULL DEFAULT getdate())
