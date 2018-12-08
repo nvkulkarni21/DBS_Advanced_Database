@@ -1,0 +1,27 @@
+use salary_management
+go
+if exists (select 1 from sysobjects where name = 'salary_management_case_3' and type = 'P')
+BEGIN
+    drop PROCEDURE salary_management_case_3
+END
+go
+create PROCEDURE salary_management_case_3
+/*
+This procedure give the salary of all the non-managers
+declare @RetValue int
+exec @RetValue = dbo.salary_management_case_3
+*/
+as 
+BEGIN
+    
+    SELECT e.Name,ds.DeptID,ds.maxSal
+    FROM (select DeptID,MAX(JobSalary) as maxSal FROM Jobs GROUP BY DeptID ) ds,Employee e, Jobs_Employee je, Dept_Employee de,Jobs j
+    WHERE e.EmployeeID  = je.EmployeeID
+    AND   de.DeptID     = ds.DeptID
+    AND   de.EmployeeID = e.EmployeeID
+    AND   j.JobID       = je.JobID
+    --AND   j.DeptID      = ds.DeptID
+    AND   ds.maxSal     = j.JobSalary
+
+END
+go
