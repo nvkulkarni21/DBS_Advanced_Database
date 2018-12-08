@@ -1,0 +1,24 @@
+use salary_management
+go
+if exists (select 1 from sysobjects where name = 'salary_management_case_1' and type = 'P')
+BEGIN
+    drop PROCEDURE salary_management_case_1
+END
+go
+create PROCEDURE salary_management_case_1
+/*
+This procedure give the salary of all the managers
+declare @RetValue int
+exec @RetValue = dbo.salary_management_case_1
+*/
+as 
+BEGIN
+    
+    SELECT e.EmployeeID,e.Name,j.JobSalary
+    FROM Employee e,Dept_Manager dm,Jobs_Employee je,Jobs j
+    WHERE e.EmployeeID  = dm.EmployeeID
+    AND   dm.EmployeeID = je.EmployeeID 
+    AND   j.JobID       = je.JobID
+
+END
+go
