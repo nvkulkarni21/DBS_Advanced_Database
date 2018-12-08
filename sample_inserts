@@ -84,3 +84,6 @@ INSERT INTO Departments VALUES (1, 'Outsourcing');
     INSERT INTO Project_Employee VALUES (1, 40, 'Contability '       , 8);
     INSERT INTO Project_Employee VALUES (1, 50, 'Managed the project', 8);
 
+    INSERT INTO Dept_Manager VALUES(10,1)
+INSERT INTO Dept_Manager VALUES(20,2)
+INSERT INTO Dept_Manager VALUES(30,3)
