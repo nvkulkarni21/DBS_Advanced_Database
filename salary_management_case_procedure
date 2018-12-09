@@ -15,14 +15,17 @@ as
 DECLARE @nJobSalaryperDay NUMERIC(15,3)
    
 BEGIN
+
+     
     --User defined Function to find the perday salary of the employee.
     --point no 1,3
     SELECT  @nJobSalaryperDay = dbo.getSalaryPerDay(@EmpID )
+    SELECT @nJobSalaryperDay as Per_day_Salary
    
 
    --Count number of males and females using group by
    -- point 2
-    SELECT Sex,count(*)
+    SELECT Sex as Gender,count(*) as Number_of_Count
     FROM  Employee
     group by Sex
 
@@ -32,6 +35,39 @@ BEGIN
     FROM Jobs J
     GROUP BY DeptID
     HAVING AVG(JobSalaryperDay) > (SELECT AVG(JobSalaryperDay) FROM Jobs J)
+    
+        /* Employee Id which is passed in the procedure, find its ProjectID he is working upon 
+    and query to XML data to find his scrum team name in the project*/
+    --point 4,5,7
+    SELECT  e.Name,p.ProjectID,p.ProjectDesc.query('(/ProjectDesc/projectheading/description/text())') as Project_Name,p.ProjectDesc.query('(/ProjectDesc/subteam/teamname/text())[1]') as Scrum_Team_Name
+    FROM    Project p , Project_Employee pe , Employee e
+    WHERE   pe.EmployeeID  = @EmpID
+    AND     pe.EmployeeID  = e.EmployeeID
+    AND     pe.ProjectID   = p.ProjectID
+
+
+    /*select p.ProjectDesc.query('(/ProjectDesc/projectheading/description/text())')
+    from Project p
+    where ProjectID =2*/
+
+    -- update attribute value  point 6
+    UPDATE  Project 
+    SET ProjectDesc.modify('  
+  replace value of (/ProjectDesc/projectheading/description[1]/text())[1]  
+  with     "Market Operations"  
+')
+    FROM    Project p , Project_Employee pe , Employee e
+    WHERE   pe.EmployeeID  = @EmpID
+    AND     pe.EmployeeID  = e.EmployeeID
+    AND     pe.ProjectID   = p.ProjectID
+
+    --After Update
+    SELECT  e.Name,p.ProjectID,p.ProjectDesc.query('(/ProjectDesc/projectheading/description/text())') as Project_Name,p.ProjectDesc.query('(/ProjectDesc/subteam/teamname/text())[1]') as Scrum_Team_Name
+    FROM    Project p , Project_Employee pe , Employee e
+    WHERE   pe.EmployeeID  = @EmpID
+    AND     pe.EmployeeID  = e.EmployeeID
+    AND     pe.ProjectID   = p.ProjectID
+
 
 END
 
